@@ -103,6 +103,14 @@ def map_data(df):
     return df
 
 
+def authenticate(criteria):
+    table = pd.crosstab([tdf['Survived']], tdf[criteria])
+    chi2, p, dof, expected = stats.chi2_contingency(table.values)
+    print("Chi square value for "+criteria+" is ",chi2)
+    print("P value for "+criteria+" is ",p)
+    print("\n")
+
+
 def ML(a,b,c,d):
     X=ndf.drop(['Survived'],axis=1).values
     Y=ndf['Survived'].values
@@ -116,10 +124,12 @@ def ML(a,b,c,d):
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy import stats
 from sklearn import preprocessing
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split 
+
 
 tdf=pd.read_csv('titanic_data.csv')
 average_ages = tdf.groupby(['Sex','Pclass'])['Age'].mean()
@@ -140,10 +150,16 @@ while(1):
         print(tdf.head(10))
     elif choice=='2':
         print("Factors are :")
-        print("Passenger Class(Pclass)")
-        print("Passenger Age(age_group)")
-        print("Gender of the Passenger(Sex)")
-        print("Embarkation Point(Embarked)")
+        print("\n")
+        print("Passenger's Class")
+        authenticate('Pclass')
+        print("Passenger's Age")
+        authenticate('age_group')
+        print("Gender of the Passenger")
+        authenticate('Sex')
+        print("Embarkation Point")
+        authenticate('Embarked')
+        print("For more relevance consider graphs also")
     elif choice=='3':
         fact_choice=input("Enter the factor ")
         plot(fact_choice)
