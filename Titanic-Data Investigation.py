@@ -37,6 +37,7 @@ def plot(criteria):
     ax2.bar(range(len(data1_percentages)), data1_percentages, alpha=0.5, color='g')
     ax2.bar(range(len(data2_percentages)), data2_percentages, bottom=data1_percentages, alpha=0.5, color='r')
     plt.sca(ax2)
+    plt.pause(1)
     if(criteria=='Sex'):
         plt.xticks([0,1], categories)
     if(criteria=='Pclass'):
@@ -127,30 +128,47 @@ survivors_data = tdf[tdf['Survived']==True]
 non_survivors_data = tdf[tdf['Survived']==False]
 ndf=process_data(tdf)
 
-print(" ")
-print("1-Preview of the Dataset")
-print("2-Factors Affecting Survival Chances of Passengers")
-print("3-Graphs depicting the count and percentage of survivors for such factors")
-print("4-Predicting the chances of survival of a passenger given the details")
-choice=input("Enter your choice : ")
-if choice=='1':
-    print(tdf.head(10))
-elif choice=='2':
-    print("Factors are :")
-    print("Passenger Class(Pclass)")
-    print("Passenger Age(age_group)")
-    print("Gender of the Passenger(Sex)")
-    print("Embarkation Point(Embarked)")
-elif choice=='3':
-    fact_choice=input("Enter the factor ")
-    plot(fact_choice)
-elif choice=='4':
-    Pcl=int(input("Enter the class of Passenger [Upper class(2) Middle class(1) or Lower class(0)]: "))
-    gen=int(input("Enter the Gender of Passenger [Male(1) or Female(0)] : "))
-    ag=int(input("Enter the Age of Passenger : "))
-    em=int(input("Enter the Embarkation point [Chebourg(0) Queenstown(1) or Southampton(2)]"))
+while(1):
     print(" ")
-    ML(Pcl,gen,ag,em)
+    print("1-Preview of the Dataset")
+    print("2-Factors Affecting Survival Chances of Passengers")
+    print("3-Graphs depicting the count and percentage of survivors for such factors")
+    print("4-Proportion of survivors by age group/gender")
+    print("5-Predicting the chances of survival of a passenger given the details")
+    choice=input("Enter your choice : ")
+    if choice=='1':
+        print(tdf.head(10))
+    elif choice=='2':
+        print("Factors are :")
+        print("Passenger Class(Pclass)")
+        print("Passenger Age(age_group)")
+        print("Gender of the Passenger(Sex)")
+        print("Embarkation Point(Embarked)")
+    elif choice=='3':
+        fact_choice=input("Enter the factor ")
+        plot(fact_choice)
+    elif choice=='4':
+        two()
+    elif choice=='5':
+        Pcl=int(input("Enter the class of Passenger [Upper class(2) Middle class(1) or Lower class(0)]: "))
+        gen=int(input("Enter the Gender of Passenger [Male(1) or Female(0)] : "))
+        ag=int(input("Enter the Age of Passenger : "))
+        em=int(input("Enter the Embarkation point [Chebourg(0) Queenstown(1) or Southampton(2)]"))
+        print(" ")
+        ML(Pcl,gen,ag,em)
+    else:
+        print("Invalid choice")
+    print("\n")
+    print("do u want to continue(y/n)")
+    dep=input()
+    if dep=='y' or dep=='Y':
+        print("\n")
+        continue
+    elif dep=='n' or dep=='N':
+        break
+    else:
+        print("Invalid Choice")
+        print("\n")
 
 
 
