@@ -162,9 +162,14 @@ while(1):
         print("For more relevance consider graphs also")
     elif choice=='3':
         fact_choice=input("Enter the factor ")
-        plot(fact_choice)
+        try:
+            plot(fact_choice)
+            plt.show()
+        except:
+            print("Invalid choice")
     elif choice=='4':
         two()
+        plt.show()
     elif choice=='5':
         Pcl=int(input("Enter the class of Passenger [Upper class(2) Middle class(1) or Lower class(0)]: "))
         gen=int(input("Enter the Gender of Passenger [Male(1) or Female(0)] : "))
